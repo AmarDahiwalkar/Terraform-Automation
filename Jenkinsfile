@@ -29,11 +29,20 @@ stages {
         }
     }
 
-    stage('Terraform Init') {
-        steps {
-            sh "terraform init -reconfigure"
-        }
-    }
+stage('Terraform Init') {
+steps {
+sh """
+terraform init -reconfigure 
+-backend-config="key=${params.ENV}/terraform.tfstate"
+"""
+}
+}
+
+    // stage('Terraform Init') {
+    //     steps {
+    //         sh "terraform init -reconfigure"
+    //     }
+    // }
 
     stage('Terraform Action') {
         steps {
